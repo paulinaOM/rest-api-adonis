@@ -7,19 +7,20 @@ const Categoria=use('App/Models/Categoria');
 
 class CategoriaController {
     async index({auth,request,params}){
-        const categorias = await Categoria.all();
-        return categorias.toJSON(); //Toma todas las tareas que pertenezcan al proyecto
+        const categoria = await Categoria.all();
+        return categoria.toJSON(); //Toma todas las categorias
     }
 
     async create({auth, request}){
         const user =  await auth.getUser();
         const {descripcion} = request.all(); //Toma el nombre de lo que se envia desde el servidor
         
-        const categoria = await Categoria.create({ //Habrá una espera en la consulta a la bd
-            descripcion: descripcion,
+        const categoria= new Categoria();
+        categoria.fill({ //Habrá una espera en la consulta a la bd
+            descripcion,
         });
-        
-        return categoria.toJSON();
+        await categoria.save();
+        return categoria;
     }
 
     async destroy({auth, params}){
