@@ -20,9 +20,10 @@ class TareaController {
         const {categoria_id}= request.only('categoria_id'); //Se obtiene de lo que se envia
         const {id}= params; //El id se obtiene de los parametros
         const proyecto = await Proyecto.find(id);
+        const categoria = await Categoria.find(categoria_id);
 
         AutorizacionService.verificarPermiso(proyecto, user); //Controlar si el recurso pertenece al usuario
-
+        AutorizacionService.verificarExistencia(categoria);
         const tarea= new Tarea();
         tarea.fill({ //Llenar la tarea con la descripcion
             descripcion,

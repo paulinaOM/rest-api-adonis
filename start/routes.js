@@ -23,6 +23,7 @@ const Route = use('Route')
 Route.group(()=>{
   Route.post('usuarios/registro','UserController.store'); //Post para crear usuario
   Route.post('usuarios/login','UserController.login');
+  Route.post('usuarios/logout','UserController.logout');
   //Rutas de los proyectos
   Route.get('proyectos','ProyectoController.index').middleware('auth');
   Route.post('proyectos','ProyectoController.create').middleware('auth');
@@ -33,7 +34,6 @@ Route.group(()=>{
   Route.post('proyectos/:id/tareas','TareaController.create').middleware('auth');
   Route.delete('tareas/:id','TareaController.destroy').middleware('auth');
   Route.patch('tareas/:id','TareaController.update').middleware('auth');
-  Route.post('usuarios/logout','UserController.logout');
   //Ruta de las categorias
   Route.get('categorias','CategoriaController.index');
   Route.post('categorias','CategoriaController.create');
