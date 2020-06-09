@@ -8,7 +8,7 @@ class TareaSchema extends Schema {
     this.create('tareas', (table) => {
       table.increments()
       table.integer('proyecto_id').unsigned().references('id').inTable('proyectos') //El campo hace referencia a un proyecto, relación
-      table.integer('categoria_id').unsigned().references('id').inTable('categoria') //El campo hace referencia a un proyecto, relación
+      table.integer('categoria_id').unsigned().references('id').inTable('categorias') //El campo hace referencia a un proyecto, relación
       table.string('descripcion',255).notNullable() //hasta 80 caracteres
       table.boolean('completada').defaultTo(false)
       table.timestamps()
