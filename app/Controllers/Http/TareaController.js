@@ -2,6 +2,7 @@
 
 const Proyecto=use('App/Models/Proyecto');
 const Tarea= use('App/Models/Tarea');
+const Categoria= use('App/Models/Categoria');
 const AutorizacionService = use('App/Services/AutorizacionService');
 
 class TareaController {
@@ -15,7 +16,8 @@ class TareaController {
 
     async create({auth,request,params}){
         const user = await auth.getUser();
-        const {descripcion}= request.all(); //Se obtiene de lo que se envia
+        const {descripcion}= request.only('descripcion'); //Se obtiene de lo que se envia
+        const {categoria_id}= request.only('categoria_id'); //Se obtiene de lo que se envia
         const {id}= params; //El id se obtiene de los parametros
         const proyecto = await Proyecto.find(id);
 
@@ -24,6 +26,7 @@ class TareaController {
         const tarea= new Tarea();
         tarea.fill({ //Llenar la tarea con la descripcion
             descripcion,
+            categoria_id,
         });
         await proyecto.tareas().save(tarea); //Un proyecto (proyecto.js) tiene muchas tareas. Guardar una tarea
         return tarea;
@@ -40,6 +43,7 @@ class TareaController {
         //proyecto.merge(request.only('nombre'));
         tarea.merge(request.only([
             'descripcion',
+            'categoria_id',
             'completada'
         ]))
         await tarea.save();

@@ -34,5 +34,10 @@ Route.group(()=>{
   Route.delete('tareas/:id','TareaController.destroy').middleware('auth');
   Route.patch('tareas/:id','TareaController.update').middleware('auth');
   Route.post('usuarios/logout','UserController.logout');
+  //Ruta de las categorias
+  Route.get('categorias','CategoriaController.index');
+  Route.post('categorias','CategoriaController.create');
+  Route.delete('categorias/:id','CategoriaController.destroy');
+  Route.patch('categorias/:id','CategoriaController.update');
 }).prefix('api/v1/'); //Todas las rutas que se coloquen en el grupo tendrán el prefijo. Pueden tenerse múltiples versiones corriendo en el mismo proyecto
 
